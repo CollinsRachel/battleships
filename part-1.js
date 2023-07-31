@@ -13,8 +13,8 @@ class BattleshipsGame {
     }
     
     /* 
-    this function will return a string consisting of a letter and a 
-    number between a-b and 1-3 
+    ** this function will return a string consisting of a letter and a 
+    ** number between a-b and 1-3 
     */
     getRandomCoordinate() {
         const letters = ["a", "b", "c"];
@@ -24,8 +24,8 @@ class BattleshipsGame {
     }
 
     /*
-    **this function will place a ship on a coordinate until all ships are placed
-    **by 
+    ** this function will place a ship on a coordinate until all ships are placed
+    ** by 
     */
     placeShips() {
         for (let i = 0; i < this.ships; i++) {
@@ -44,6 +44,28 @@ class BattleshipsGame {
     */
     isValidGuess(guess) {
         return /^[a-c][1-3]$/i.test(guess);
+    }
+
+    /*
+    ** this function will check if a guess that is passed through the function
+    ** if the guess does match the location that a ship is placed or not it 
+    ** or if the guess has been guessed already it will print a correlating 
+    ** message. 
+    */
+    checkGuess(guess) {
+        //check if guess has or has not been guessed already
+        if(this.guesses.has(guess)){
+            console.log("You have already picked this location. Miss!");
+        } else {
+            //if the guess is new add the new guess
+            this.guesses.add(guess);
+            //check if the guess has "hit" or "not hit"
+            if(this.shipCoordinates.includes(guess)) {
+                console.log("Hit. You have sunk a battleship.");
+            } else {
+                console.log("You have missed.");
+            }
+        }
     }
 }
 const game = new BattleshipsGame();
