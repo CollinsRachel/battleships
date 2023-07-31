@@ -61,7 +61,9 @@ class BattleshipsGame {
             this.guesses.add(guess);
             //check if the guess has "hit" or "not hit"
             if(this.shipCoordinates.includes(guess)) {
-                console.log("Hit. You have sunk a battleship.");
+                console.log(`Hit. You have sunk a battleship. ${this.ships} ship${this.ships === 1 ? " " : "s"} remaining!`);
+                //reduce the amount of ships after a ship has been guessed. 
+                this.ships--; 
             } else {
                 console.log("You have missed.");
             }
