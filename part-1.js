@@ -45,6 +45,5 @@ class BattleshipsGame {
     isValidGuess(guess) {
         return /^[a-c][1-3]$/i.test(guess);
     }
-
 }
 const game = new BattleshipsGame();
