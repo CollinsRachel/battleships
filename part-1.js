@@ -69,5 +69,20 @@ class BattleshipsGame {
             }
         }
     }
+    startGame() {
+        console.log("Press any key to start the game.");
+        readlineSync.keyInPause();
+
+        this.placeShips();
+
+        const guess = readlineSync.question("Enter a location to strike ie 'A2' ");
+        if(!this.isValidGuess(guess)) {
+            console.log("Invalid guess");
+        } else {
+            this.checkGuess(guess);
+            console.log("This is a valid guess");
+        }
+    }
 }
 const game = new BattleshipsGame();
+game.startGame();
