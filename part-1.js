@@ -101,17 +101,15 @@ class BattleshipsGame {
         this.ships = 2;
         this.shipCoordinates = [];
         this.guesses.clear();
-        this.play();
+        this.startGame();
         } else {
             console.log("Thanks for playing! Goodbye.");
         }
     }
 
     playAgain() {
-        const uWon = readlineSync.question("You have destroyed all battleships. Would you like to play again? Y/N");
-        if(uWon === "y" || uWon === "Y") {
-            return true;
-        }
+        const uWon = readlineSync.question("You have destroyed all battleships. Would you like to play again? Y/N: ");
+        return /^[yY]$/.test(uWon);
     }
 
 }
