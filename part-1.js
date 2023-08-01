@@ -61,28 +61,59 @@ class BattleshipsGame {
             this.guesses.add(guess);
             //check if the guess has "hit" or "not hit"
             if(this.shipCoordinates.includes(guess)) {
-                console.log(`Hit. You have sunk a battleship. ${this.ships} ship${this.ships === 1 ? " " : "s"} remaining!`);
                 //reduce the amount of ships after a ship has been guessed. 
-                this.ships--; 
+                this.ships--;
+                console.log(`Hit. You have sunk a battleship. ${this.ships} ship${this.ships === 1 ? " " : "s"} remaining!`); 
             } else {
                 console.log("You have missed.");
             }
         }
     }
+
+    /*
+    ** This function will pull together the functions to allow user to interact
+    ** with the game. 
+    */
     startGame() {
         console.log("Press any key to start the game.");
         readlineSync.keyInPause();
 
         this.placeShips();
 
-        const guess = readlineSync.question("Enter a location to strike ie 'A2' ");
-        if(!this.isValidGuess(guess)) {
-            console.log("Invalid guess");
+        //While the game is still being played checks guesses' validity
+        while(this.ships !== 0) {
+            const guess = readlineSync.question("Enter a location to strike ie 'A2' ");
+            if(!this.isValidGuess(guess)) {
+                console.log("Invalid guess");
+            } else {
+                this.checkGuess(guess);
+                //unnecessary line, just testing logic.
+                console.log("This is a valid guess");
+            }
+        }
+
+        if(this.playAgain()) {
+        this.board = Array(3)
+        .fill(null)
+        .map(() => Array(3)
+        .fill(null));
+
+        this.ships = 2;
+        this.shipCoordinates = [];
+        this.guesses.clear();
+        this.play();
         } else {
-            this.checkGuess(guess);
-            console.log("This is a valid guess");
+            console.log("Thanks for playing! Goodbye.");
         }
     }
+
+    playAgain() {
+        const uWon = readlineSync.question("You have destroyed all battleships. Would you like to play again? Y/N");
+        if(uWon === "y" || uWon === "Y") {
+            return true;
+        }
+    }
+
 }
 const game = new BattleshipsGame();
 game.startGame();
